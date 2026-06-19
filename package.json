@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-clio",
+  "name": "@beamreach/n8n-nodes-clio",
   "version": "0.1.0",
   "description": "n8n community node for Clio legal practice management — automate contacts, matters, and notes for immigration law firms",
   "keywords": [
@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beamreach/n8n-nodes-clio.git"
+    "url": "git+https://github.com/beamreach-ai/n8n-nodes-clio.git"
   },
   "bugs": {
-    "url": "https://github.com/beamreach/n8n-nodes-clio/issues"
+    "url": "https://github.com/beamreach-ai/n8n-nodes-clio/issues"
   },
   "main": "index.js",
   "scripts": {

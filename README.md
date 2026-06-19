@@ -1,6 +1,6 @@
-# n8n-nodes-clio
+# @beamreach/n8n-nodes-clio
 
-[![npm version](https://img.shields.io/npm/v/n8n-nodes-clio.svg)](https://www.npmjs.com/package/n8n-nodes-clio)
+[![npm version](https://img.shields.io/npm/v/@beamreach/n8n-nodes-clio.svg)](https://www.npmjs.com/package/@beamreach/n8n-nodes-clio)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 [n8n](https://n8n.io) community node for [Clio](https://www.clio.com) — the legal practice management platform used by 150,000+ law firms worldwide.
@@ -33,12 +33,12 @@ No more manual data entry: connect your intake forms, AI classification pipeline
 
 1. Go to **Settings → Community Nodes**
 2. Select **Install**
-3. Enter `n8n-nodes-clio` and confirm
+3. Enter `@beamreach/n8n-nodes-clio` and confirm
 
 ### npm (local or Docker)
 
 ```bash
-npm install n8n-nodes-clio
+npm install @beamreach/n8n-nodes-clio
 ```
 
 Then restart n8n.
@@ -74,7 +74,7 @@ Then restart n8n.
 
 ## Example: Immigration intake workflow
 
-This node powers the [Immigration Intake — AI Visa Classification + Clio](https://github.com/beamreach/beamreach-legal-automation-workflows) workflow:
+This node powers the [Immigration Intake — AI Visa Classification + Clio](https://github.com/beamreach-ai/beamreach-legal-automation-workflows) workflow:
 
 ```
 Webhook → OpenAI (visa classification) → Clio Contact → Clio Matter → Clio Note → Email
@@ -82,7 +82,7 @@ Webhook → OpenAI (visa classification) → Clio Contact → Clio Matter → Cl
 
 The workflow accepts any intake form structure (Typeform, Jotform, custom survey), runs GPT-4o to classify the visa type and generate a document checklist, then creates everything in Clio automatically.
 
-[Download the workflow →](https://github.com/beamreach/beamreach-legal-automation-workflows/tree/main/n8n-workflows/immigration-intake)
+[Download the workflow →](https://github.com/beamreach-ai/beamreach-legal-automation-workflows/tree/main/n8n-workflows/immigration-intake)
 
 ---
 
@@ -101,7 +101,7 @@ Full documentation: [app.clio.com/api/v4/documentation](https://app.clio.com/api
 ## Development
 
 ```bash
-git clone https://github.com/beamreach/n8n-nodes-clio
+git clone https://github.com/beamreach-ai/n8n-nodes-clio
 cd n8n-nodes-clio
 npm install
 npm run build
@@ -114,7 +114,7 @@ To test locally with n8n:
 npm link
 
 # In your n8n installation directory
-npm link n8n-nodes-clio
+npm link @beamreach/n8n-nodes-clio
 ```
 
 Then restart n8n — the Clio node will appear in the node list.

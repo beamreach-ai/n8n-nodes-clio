@@ -1,0 +1,68 @@
+{
+  "name": "n8n-nodes-clio",
+  "version": "0.1.0",
+  "description": "n8n community node for Clio legal practice management — automate contacts, matters, and notes for immigration law firms",
+  "keywords": [
+    "n8n-community-node-package",
+    "clio",
+    "legal",
+    "law",
+    "immigration",
+    "practice-management",
+    "automation"
+  ],
+  "license": "MIT",
+  "homepage": "https://beamreach.ai/immigration-law-automation.html",
+  "author": {
+    "name": "Beamreach",
+    "email": "ilia@beamreach.cloud",
+    "url": "https://beamreach.ai"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beamreach/n8n-nodes-clio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/beamreach/n8n-nodes-clio/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && npm run copy-assets",
+    "copy-assets": "copyfiles -u 2 nodes/**/*.svg dist/nodes",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials --ext .ts",
+    "lintfix": "eslint nodes credentials --ext .ts --fix",
+    "prepublishOnly": "npm run build && npm run lint"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/ClioOAuth2Api.credentials.js",
+      "dist/credentials/ClioApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Clio/Clio.node.js"
+    ]
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.1",
+    "n8n-workflow": "^1.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "engines": {
+    "node": ">=18.10"
+  }
+}

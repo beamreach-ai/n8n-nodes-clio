@@ -69,19 +69,25 @@ export const contactFields: INodeProperties[] = [
     default: {},
     options: [
       {
+        displayName: 'Country of Origin',
+        name: 'country',
+        type: 'string',
+        default: '',
+        description: 'Used as a custom field note — not a native Clio field',
+      },
+      {
+        displayName: 'Date of Birth',
+        name: 'dateOfBirth',
+        type: 'dateTime',
+        default: '',
+      },
+      {
         displayName: 'Email',
         name: 'email',
         type: 'string',
         default: '',
         placeholder: 'name@example.com',
         typeOptions: { email: true },
-      },
-      {
-        displayName: 'Phone',
-        name: 'phone',
-        type: 'string',
-        default: '',
-        placeholder: '+1 555 000 0000',
       },
       {
         displayName: 'First Name',
@@ -96,24 +102,18 @@ export const contactFields: INodeProperties[] = [
         default: '',
       },
       {
+        displayName: 'Phone',
+        name: 'phone',
+        type: 'string',
+        default: '',
+        placeholder: '+1 555 000 0000',
+      },
+      {
         displayName: 'Prefix',
         name: 'prefix',
         type: 'string',
         default: '',
         description: 'E.g. Mr., Ms., Dr.',
-      },
-      {
-        displayName: 'Date of Birth',
-        name: 'dateOfBirth',
-        type: 'dateTime',
-        default: '',
-      },
-      {
-        displayName: 'Country of Origin',
-        name: 'country',
-        type: 'string',
-        default: '',
-        description: 'Used as a custom field note — not a native Clio field',
       },
     ],
   },
@@ -136,7 +136,7 @@ export const contactFields: INodeProperties[] = [
     type: 'boolean',
     displayOptions: { show: { resource: ['contact'], operation: ['getAll'] } },
     default: false,
-    description: 'Whether to return all results or only up to the specified limit',
+    description: 'Whether to return all results or only up to a given limit',
   },
   {
     displayName: 'Limit',
@@ -145,9 +145,9 @@ export const contactFields: INodeProperties[] = [
     displayOptions: {
       show: { resource: ['contact'], operation: ['getAll'], returnAll: [false] },
     },
-    typeOptions: { minValue: 1, maxValue: 200 },
+    typeOptions: { minValue: 1 },
     default: 50,
-    description: 'Max number of contacts to return',
+    description: 'Max number of results to return',
   },
   {
     displayName: 'Filters',
@@ -194,7 +194,6 @@ export const contactFields: INodeProperties[] = [
     displayOptions: { show: { resource: ['contact'], operation: ['update'] } },
     default: {},
     options: [
-      { displayName: 'Name', name: 'name', type: 'string', default: '' },
       {
         displayName: 'Email',
         name: 'email',
@@ -203,9 +202,10 @@ export const contactFields: INodeProperties[] = [
         placeholder: 'name@example.com',
         typeOptions: { email: true },
       },
-      { displayName: 'Phone', name: 'phone', type: 'string', default: '' },
       { displayName: 'First Name', name: 'firstName', type: 'string', default: '' },
       { displayName: 'Last Name', name: 'lastName', type: 'string', default: '' },
+      { displayName: 'Name', name: 'name', type: 'string', default: '' },
+      { displayName: 'Phone', name: 'phone', type: 'string', default: '' },
     ],
   },
 ];

@@ -96,7 +96,7 @@ export const noteFields: INodeProperties[] = [
     type: 'boolean',
     displayOptions: { show: { resource: ['note'], operation: ['getAll'] } },
     default: false,
-    description: 'Whether to return all results or only up to the specified limit',
+    description: 'Whether to return all results or only up to a given limit',
   },
   {
     displayName: 'Limit',
@@ -105,8 +105,9 @@ export const noteFields: INodeProperties[] = [
     displayOptions: {
       show: { resource: ['note'], operation: ['getAll'], returnAll: [false] },
     },
-    typeOptions: { minValue: 1, maxValue: 200 },
+    typeOptions: { minValue: 1 },
     default: 50,
+    description: 'Max number of results to return',
   },
   {
     displayName: 'Filters',

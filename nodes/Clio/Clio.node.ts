@@ -5,6 +5,7 @@ import {
   INodeType,
   INodeTypeDescription,
   JsonObject,
+  NodeOperationError,
 } from 'n8n-workflow';
 
 import { clioApiRequest, clioApiRequestAllItems } from './GenericFunctions';
@@ -167,7 +168,7 @@ export class Clio implements INodeType {
             )) as { data: JsonObject };
             responseData = res.data;
           } else {
-            throw new Error(`Unknown contact operation: ${operation}`);
+            throw new NodeOperationError(this.getNode(), `Unknown contact operation: ${operation}`);
           }
         }
 
@@ -254,7 +255,7 @@ export class Clio implements INodeType {
             )) as { data: JsonObject };
             responseData = res.data;
           } else {
-            throw new Error(`Unknown matter operation: ${operation}`);
+            throw new NodeOperationError(this.getNode(), `Unknown matter operation: ${operation}`);
           }
         }
 
@@ -316,10 +317,10 @@ export class Clio implements INodeType {
               responseData = res.data;
             }
           } else {
-            throw new Error(`Unknown note operation: ${operation}`);
+            throw new NodeOperationError(this.getNode(), `Unknown note operation: ${operation}`);
           }
         } else {
-          throw new Error(`Unknown resource: ${resource}`);
+          throw new NodeOperationError(this.getNode(), `Unknown resource: ${resource}`);
         }
 
         const executionData = this.helpers.constructExecutionMetaData(

@@ -66,11 +66,32 @@ export const matterFields: INodeProperties[] = [
     default: {},
     options: [
       {
+        displayName: 'Client Reference',
+        name: 'clientReference',
+        type: 'string',
+        default: '',
+        description: 'Optional client-facing matter reference number',
+      },
+      {
+        displayName: 'Open Date',
+        name: 'openDate',
+        type: 'dateTime',
+        default: '',
+        description: 'Leave blank to use today\'s date',
+      },
+      {
         displayName: 'Practice Area ID',
         name: 'practiceAreaId',
         type: 'string',
         default: '',
         description: 'Clio practice area numeric ID (find in Settings → Practice Areas)',
+      },
+      {
+        displayName: 'Responsible Attorney ID',
+        name: 'responsibleAttorneyId',
+        type: 'string',
+        default: '',
+        description: 'Clio user ID of the responsible attorney',
       },
       {
         displayName: 'Status',
@@ -82,27 +103,6 @@ export const matterFields: INodeProperties[] = [
           { name: 'Open', value: 'Open' },
           { name: 'Closed', value: 'Closed' },
         ],
-      },
-      {
-        displayName: 'Open Date',
-        name: 'openDate',
-        type: 'dateTime',
-        default: '',
-        description: 'Leave blank to use today\'s date',
-      },
-      {
-        displayName: 'Responsible Attorney ID',
-        name: 'responsibleAttorneyId',
-        type: 'string',
-        default: '',
-        description: 'Clio user ID of the responsible attorney',
-      },
-      {
-        displayName: 'Client Reference',
-        name: 'clientReference',
-        type: 'string',
-        default: '',
-        description: 'Optional client-facing matter reference number',
       },
     ],
   },
@@ -125,7 +125,7 @@ export const matterFields: INodeProperties[] = [
     type: 'boolean',
     displayOptions: { show: { resource: ['matter'], operation: ['getAll'] } },
     default: false,
-    description: 'Whether to return all results or only up to the specified limit',
+    description: 'Whether to return all results or only up to a given limit',
   },
   {
     displayName: 'Limit',
@@ -134,8 +134,9 @@ export const matterFields: INodeProperties[] = [
     displayOptions: {
       show: { resource: ['matter'], operation: ['getAll'], returnAll: [false] },
     },
-    typeOptions: { minValue: 1, maxValue: 200 },
+    typeOptions: { minValue: 1 },
     default: 50,
+    description: 'Max number of results to return',
   },
   {
     displayName: 'Filters',

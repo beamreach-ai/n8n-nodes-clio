@@ -91,7 +91,15 @@ export class Clio implements INodeType {
               string
             >;
 
-            const body: IDataObject = { name, type };
+            // Clio API: Person contacts use first_name/last_name; Company contacts use name
+            const body: IDataObject = { type };
+            if (type === 'Person') {
+              if (extra.firstName) body.first_name = extra.firstName;
+              if (extra.lastName) body.last_name = extra.lastName;
+              if (!extra.firstName && !extra.lastName) body.name = name;
+            } else {
+              body.name = name;
+            }
             if (extra.email) {
               body.primary_email_address = { name: 'Work', address: extra.email };
             }
@@ -100,8 +108,6 @@ export class Clio implements INodeType {
                 { name: 'Mobile', number: extra.phone, default_number: true },
               ];
             }
-            if (extra.firstName) body.first_name = extra.firstName;
-            if (extra.lastName) body.last_name = extra.lastName;
             if (extra.prefix) body.prefix = extra.prefix;
             if (extra.dateOfBirth) body.date_of_birth = extra.dateOfBirth;
 
@@ -273,6 +279,7 @@ export class Clio implements INodeType {
             const body: IDataObject = {
               subject,
               detail,
+              type: 'Matter',
               matter: { id: Number(matterId) },
             };
             if (extra.date) body.date = extra.date;

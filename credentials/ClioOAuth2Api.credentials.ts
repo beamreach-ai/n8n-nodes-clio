@@ -9,6 +9,16 @@ export class ClioOAuth2Api implements ICredentialType {
 
   properties: INodeProperties[] = [
     {
+      displayName: 'Region',
+      name: 'region',
+      type: 'options',
+      options: [
+        { name: 'North America (app.clio.com)', value: 'us' },
+        { name: 'Europe (eu.app.clio.com)', value: 'eu' },
+      ],
+      default: 'us',
+    },
+    {
       displayName: 'Grant Type',
       name: 'grantType',
       type: 'hidden',
@@ -18,14 +28,14 @@ export class ClioOAuth2Api implements ICredentialType {
       displayName: 'Authorization URL',
       name: 'authUrl',
       type: 'hidden',
-      default: 'https://app.clio.com/oauth/authorize',
+      default: '=https://{{ $self["region"] === "eu" ? "eu." : "" }}app.clio.com/oauth/authorize',
       required: true,
     },
     {
       displayName: 'Access Token URL',
       name: 'accessTokenUrl',
       type: 'hidden',
-      default: 'https://app.clio.com/oauth/token',
+      default: '=https://{{ $self["region"] === "eu" ? "eu." : "" }}app.clio.com/oauth/token',
       required: true,
     },
     {
@@ -44,7 +54,7 @@ export class ClioOAuth2Api implements ICredentialType {
       displayName: 'Authentication',
       name: 'authentication',
       type: 'hidden',
-      default: 'body',
+      default: 'header',
     },
   ];
 }

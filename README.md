@@ -5,8 +5,7 @@
 
 [n8n](https://n8n.io) community node for [Clio](https://www.clio.com) — the legal practice management platform used by 150,000+ law firms worldwide.
 
-This node lets you automate contacts, matters, and notes directly from n8n workflows.
-No more manual data entry: connect your intake forms, AI classification pipelines, and email systems to Clio in a single workflow.
+Automate contacts, matters, and notes directly from n8n workflows. Connect intake forms, AI classification pipelines, and email systems to Clio without writing API code.
 
 > Built by [Beamreach](https://beamreach.ai/immigration-law-automation.html) — we help immigration law firms automate their client operations with n8n and AI.
 
@@ -20,67 +19,65 @@ No more manual data entry: connect your intake forms, AI classification pipeline
 | **Matter** | Create, Get, Get Many, Update |
 | **Note** | Create, Get, Get Many |
 
-### Authentication
-
-- **OAuth2** (recommended for production) — Clio's standard OAuth2 authorization code flow
-- **API Key** — for quick testing and server-to-server integrations
-
 ---
 
 ## Installation
 
-### n8n Cloud / self-hosted (recommended)
+### n8n Cloud / self-hosted
 
 1. Go to **Settings → Community Nodes**
 2. Select **Install**
 3. Enter `@beamreach/n8n-nodes-clio` and confirm
+4. Restart n8n if prompted
 
-### npm (local or Docker)
+### Docker / npm
 
 ```bash
 npm install @beamreach/n8n-nodes-clio
 ```
 
-Then restart n8n.
+Restart n8n after installing.
 
 ---
 
 ## Setup
 
-### 1. Create a Clio app (OAuth2)
+### Step 1 — Create a Clio developer app
 
-1. Log in to Clio → **Settings → API Keys → Developer Portal**
+1. Go to [developers.clio.com](https://developers.clio.com) (or **Clio → Settings → Developer Portal**)
 2. Click **Create an Application**
-3. Set the redirect URI to your n8n OAuth callback:
+3. Add your n8n callback URL as a **Redirect URI**:
    ```
    https://your-n8n-host.com/rest/oauth2-credential/callback
    ```
-4. Copy your **Client ID** and **Client Secret**
+   For local testing: `http://127.0.0.1:5678/rest/oauth2-credential/callback`
+   > Clio only accepts HTTPS URIs or `http://127.0.0.1` — `http://localhost` is rejected.
+4. Under **Permissions**, enable **Read + Write** for:
+   - **Contacts** (includes contact notes)
+   - **Matters** (includes matter notes and practice areas)
+5. Save and copy your **Client ID** and **Client Secret**
 
-### 2. Add credentials in n8n
+### Step 2 — Add credentials in n8n
 
-1. In n8n, go to **Credentials → New**
-2. Search for **Clio OAuth2**
-3. Paste your Client ID and Client Secret
-4. Click **Connect** — you'll be redirected to Clio to authorize
-5. Done — the node will automatically refresh tokens
-
-### API Key alternative
-
-1. In Clio → **Settings → API Keys** → generate a key
-2. In n8n credentials, choose **Clio API Key** and paste the key
+1. In n8n → **Credentials → New** → search **Clio OAuth2**
+2. Select your **Region**:
+   - **North America** — if your Clio URL is `app.clio.com`
+   - **Europe** — if your Clio URL is `eu.app.clio.com`
+3. Paste your **Client ID** and **Client Secret**
+4. Click **Connect my account** — authorize in the Clio popup
+5. Done — tokens refresh automatically
 
 ---
 
-## Example: Immigration intake workflow
+## Example workflow
 
-This node powers the [Immigration Intake — AI Visa Classification + Clio](https://github.com/beamreach-ai/beamreach-legal-automation-workflows) workflow:
+This node powers the [Immigration Intake — AI Visa Classification + Clio](https://github.com/beamreach-ai/beamreach-legal-automation-workflows/tree/main/n8n-workflows/immigration-intake) workflow:
 
 ```
-Webhook → OpenAI (visa classification) → Clio Contact → Clio Matter → Clio Note → Email
+Intake form → Webhook → GPT-4o (visa classification) → Clio Contact → Clio Matter → Clio Note → Confirmation email
 ```
 
-The workflow accepts any intake form structure (Typeform, Jotform, custom survey), runs GPT-4o to classify the visa type and generate a document checklist, then creates everything in Clio automatically.
+Accepts any intake form structure (Typeform, Jotform, custom survey). GPT-4o classifies the visa type and generates a document checklist; everything lands in Clio automatically.
 
 [Download the workflow →](https://github.com/beamreach-ai/beamreach-legal-automation-workflows/tree/main/n8n-workflows/immigration-intake)
 
@@ -88,13 +85,16 @@ The workflow accepts any intake form structure (Typeform, Jotform, custom survey
 
 ## Clio API reference
 
-| Resource | Clio API v4 endpoint |
-|----------|---------------------|
+| Resource | Endpoint |
+|----------|----------|
 | Contacts | `GET/POST /api/v4/contacts.json` |
 | Matters | `GET/POST /api/v4/matters.json` |
 | Notes | `GET/POST /api/v4/notes.json` |
 
-Full documentation: [app.clio.com/api/v4/documentation](https://app.clio.com/api/v4/documentation)
+- North America: `https://app.clio.com/api/v4/`
+- Europe: `https://eu.app.clio.com/api/v4/`
+
+Full docs: [app.clio.com/api/v4/documentation](https://app.clio.com/api/v4/documentation)
 
 ---
 
@@ -107,17 +107,15 @@ npm install
 npm run build
 ```
 
-To test locally with n8n:
+To test locally, link into your n8n instance:
 
 ```bash
-# In the n8n-nodes-clio directory
 npm link
-
-# In your n8n installation directory
+# in your n8n directory:
 npm link @beamreach/n8n-nodes-clio
 ```
 
-Then restart n8n — the Clio node will appear in the node list.
+Restart n8n — the Clio node appears in the node list.
 
 ---
 
@@ -141,4 +139,4 @@ MIT © [Beamreach](https://beamreach.ai)
 
 ## About Beamreach
 
-We build legal automation systems for immigration law firms. If you want this set up for your firm — including custom intake forms, Clio integration, and AI-powered case routing — [book a call](https://beamreach.ai/immigration-law-automation.html).
+We build legal automation systems for immigration law firms. If you want this deployed for your firm — custom intake forms, Clio integration, AI-powered case routing — [book a call](https://beamreach.ai/immigration-law-automation.html).

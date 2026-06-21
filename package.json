@@ -1,6 +1,6 @@
 {
   "name": "@beamreach/n8n-nodes-clio",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n community node for Clio legal practice management — automate contacts, matters, and notes for immigration law firms",
   "keywords": [
     "n8n-community-node-package",
